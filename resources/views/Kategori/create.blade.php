@@ -31,6 +31,7 @@
         </div>
     @endif
 	<form method="POST" action="{{ route('kategori.store') }}" id="myForm">
+        @csrf
 		<div class="form-group row">
 			<label for="kode_kategori" class="col-sm-12 col-md-2 col-form-label text-white">Kode Kategori</label>
 			<div class="col-sm-12 col-md-10">
