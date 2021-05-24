@@ -106,6 +106,8 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //fungsi eloquent untuk menghapus data
+        Kategori::find($id)->delete();
+        return redirect()->route('kategori.index');
     }
 }
