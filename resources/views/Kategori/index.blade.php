@@ -27,7 +27,7 @@
         <div class="pb-20">
             <div class="header-left">
                 <div class="header-search col-sm-12">
-                    <form class="form" method="" action="">
+                    <form class="form" method="GET" action="{{ route('kategori.index') }}">
                         <div class="form-group mb-0">
                             <input type="text" class="form-control search-input" name="search" placeholder="Search Here">
                             <div class="dropdown">

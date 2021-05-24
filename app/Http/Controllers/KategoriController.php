@@ -12,10 +12,19 @@ class KategoriController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $kategori = Kategori::paginate(5); /// Pagination menampilkan 5 data
-        return view('Kategori.index', compact('kategori'));
+        if($request->has('search')){ // Pemilihan jika ingin melakukan pencarian
+            $kategori = Kategori::where('kode_kategori', 'like', "%" . $request->search . "%")
+            ->orwhere('nama_kategori', 'like', "%" . $request->search . "%")
+            ->orwhere('keterangan', 'like', "%" . $request->search . "%")
+            ->paginate(5);
+            return view('Kategori.index', compact('kategori'))->with('i', (request()->input('page', 1) - 1) * 5);
+        } else { // Pemilihan jika tidak melakukan pencarian
+            //fungsi eloquent menampilkan data menggunakan pagination
+            $kategori = Kategori::paginate(5); // MenPagination menampilkan 5 data
+            return view('Kategori.index', compact('kategori'));
+        }
     }
 
     /**
