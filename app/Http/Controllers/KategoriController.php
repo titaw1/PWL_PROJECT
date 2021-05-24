@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KategoriController extends Controller
 {
@@ -55,6 +56,7 @@ class KategoriController extends Controller
             Kategori::create($request->all());
 
             //jika data berhasil ditambahkan, akan kembali ke halaman utama
+            Alert::success('Success', 'Data Kategori Barang Berhasil Ditambahkan');
             return redirect()->route('kategori.index');
     }
 
@@ -104,6 +106,7 @@ class KategoriController extends Controller
             Kategori::find($id)->update($request->all());
 
         //jika data berhasil diupdate, akan kembali ke halaman utama
+            Alert::success('Success', 'Data Kategori Barang Berhasil Diupdate');
             return redirect()->route('kategori.index');
     }
 
@@ -117,6 +120,7 @@ class KategoriController extends Controller
     {
         //fungsi eloquent untuk menghapus data
         Kategori::find($id)->delete();
+        Alert::success('Success', 'Data kategori berhasil dihapus');
         return redirect()->route('kategori.index');
     }
 }

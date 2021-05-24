@@ -53,6 +53,8 @@
             @include('layouts.footer')
 		</div>
 	</div>
+    {{--  Alert  --}}
+    @include('sweetalert::alert')
 	<!-- js -->
 	<script src="{{asset('templete/vendors/scripts/core.js')}}"></script>
 	<script src="{{asset('templete/vendors/scripts/script.min.js')}}"></script>
