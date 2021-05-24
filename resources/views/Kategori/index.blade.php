@@ -15,7 +15,7 @@
                 </nav>
             </div>
             <div class="col-md-6 col-sm-12 text-right">
-                <a class="btn btn-primary" href="">
+                <a class="btn btn-primary" href="{{ url('/laporan/kategori') }}">
                     Download Laporan
                 </a>
             </div>
