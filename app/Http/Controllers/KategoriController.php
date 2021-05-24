@@ -57,7 +57,9 @@ class KategoriController extends Controller
      */
     public function show($id)
     {
-        //
+        //menampilkan detail data dengan menemukan/berdasarkan id kategori
+        $kategori = Kategori::find($id);
+        return view('Kategori.show', compact('kategori'));
     }
 
     /**
