@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use PDF;
 
 class KategoriController extends Controller
 {
@@ -122,5 +123,12 @@ class KategoriController extends Controller
         Kategori::find($id)->delete();
         Alert::success('Success', 'Data kategori berhasil dihapus');
         return redirect()->route('kategori.index');
+    }
+
+    public function laporan()
+    {
+        $kategori = Kategori::all();
+        $pdf = PDF::loadview('Kategori.laporan', compact('kategori'));
+        return $pdf->stream();
     }
 }
