@@ -57,7 +57,7 @@ class KategoriController extends Controller
      */
     public function show($id)
     {
-        //menampilkan detail data dengan menemukan/berdasarkan id kategori
+        //menampilkan detail data dengan menemukan berdasarkan id kategori
         $kategori = Kategori::find($id);
         return view('Kategori.show', compact('kategori'));
     }
@@ -70,7 +70,9 @@ class KategoriController extends Controller
      */
     public function edit($id)
     {
-        //
+        //menampilkan detail data dengan menemukan berdasarkan id kategori untuk diedit
+        $kategori = Kategori::find($id);
+        return view('Kategori.edit', compact('kategori'));
     }
 
     /**
@@ -82,7 +84,18 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //melakukan validasi data
+        $request->validate([
+            'kode_kategori' => 'required',
+            'nama_kategori' => 'required',
+            'keterangan' => 'required',
+            ]);
+
+        //fungsi eloquent untuk mengupdate data inputan kita
+            Kategori::find($id)->update($request->all());
+
+        //jika data berhasil diupdate, akan kembali ke halaman utama
+            return redirect()->route('kategori.index');
     }
 
     /**
