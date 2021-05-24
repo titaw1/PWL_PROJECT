@@ -28,3 +28,4 @@ Route::get('/coba', function () {
 });
 
 Route::resource('kategori', KategoriController::class);
+Route::get('/laporan/kategori', [KategoriController::class, 'laporan']);
