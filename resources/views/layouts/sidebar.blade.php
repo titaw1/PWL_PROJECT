@@ -22,6 +22,11 @@
                         <span class="micon dw dw-diagram"></span><span class="mtext">Kategori Barang</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('barang.index') }}" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-box"></span><span class="mtext">Barang</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
