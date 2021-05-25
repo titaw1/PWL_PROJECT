@@ -100,7 +100,9 @@ class BarangController extends Controller
      */
     public function edit($id)
     {
-
+        $barang = Barang::with('kategori')->find($id);
+        $kategori = Kategori::all();
+        return view('Barang.edit', compact('barang', 'kategori'));
     }
 
     /**
@@ -112,7 +114,37 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'kode_barang' => 'required',
+            'nama_barang' => 'required',
+            'gambar' => 'required',
+            'jumlah_barang' => 'required',
+            'id_kategori' => 'required',
+        ]);
+
+        $barang = Barang::with('kategori')->where('id', $id)->first();
+
+
+        if ($barang->gambar && file_exists(storage_path('app/public/' .$barang->gambar)))
+        {
+            \Storage::delete(['public/' . $barang->gambar]);
+        }
+        $image_name = $request->file('gambar')->store('images', 'public');
+        $barang->gambar = $image_name;
+
+        $barang->kode_barang = $request->get('kode_barang');
+        $barang->nama_barang = $request->get('nama_barang');
+        $barang->jumlah_barang = $request->get('jumlah_barang');
+
+        $kategori = Kategori::find($request->get('id_kategori'));
+        //fungsi eloquent untuk menambah data dengan relasi belongsTo
+        $barang->kategori()->associate($kategori);
+        $barang->save();
+
+        //jika data berhasil ditambahkan, akan kembali ke halaman utama
+        Alert::success('Success', 'Data Barang Berhasil Diedit');
+        return redirect()->route('barang.index');
+
     }
 
     /**
