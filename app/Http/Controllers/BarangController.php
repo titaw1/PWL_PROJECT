@@ -89,7 +89,9 @@ class BarangController extends Controller
      */
     public function show($id)
     {
-        //
+        $barang = Barang::with('kategori')->find($id);
+        $kategori = Kategori::all();
+        return view('Barang.show', compact('barang', 'kategori'));
     }
 
     /**
