@@ -13,7 +13,7 @@ class BarangSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Kategori::insert([
+        \App\Models\Barang::insert([
             [
                 'kode_barang' => 'MB01',
                 'nama_barang' => 'Mobil',
