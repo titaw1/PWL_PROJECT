@@ -6,6 +6,7 @@ use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use PDF;
 
 class BarangController extends Controller
 {
@@ -160,5 +161,13 @@ class BarangController extends Controller
         Barang::find($id)->delete();
         Alert::success('Success', 'Data Barang berhasil dihapus');
         return redirect()->route('barang.index');
+    }
+
+    public function laporan()
+    {
+        $barang = Barang::all();
+        $kategori = Kategori::all();
+        $pdf = PDF::loadview('Barang.laporan', compact('barang', 'kategori'));
+        return $pdf->stream();
     }
 }

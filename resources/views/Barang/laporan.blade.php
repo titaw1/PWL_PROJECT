@@ -20,22 +20,26 @@
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left mt-2">
                     <h3 align="center">SISTEM INVENTORY SEKOLAH</h3>
-                    <h3 align="center">LAPORAN DATA KATEGORI BARANG</h3>
+                    <h3 align="center">LAPORAN DATA BARANG</h3>
                 </div>
                 <br>
                 <table class="table table-bordered">
                     <tr>
                         <th>No</th>
-                        <th>Kode</th>
+                        <th>Gambar</th>
+                        <th>Kode Barang</th>
                         <th>Kategori</th>
-                        <th>Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Jumlah</th>
                     </tr>
-                    @foreach ($kategori as $kt => $data)
+                    @foreach ($barang as $br => $data)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $data->kode_kategori }}</td>
-                        <td>{{ $data->nama_kategori }}</td>
-                        <td>{{ $data->keterangan }}</td>
+                        <td><img width="100px" src="{{ public_path('storage/' . $data->gambar)}}"></td>
+                        <td>{{ $data->kode_barang }}</td>
+                        <td>{{ $data->kategori->nama_kategori }}</td>
+                        <td>{{ $data->nama_barang }}</td>
+                        <td>{{ $data->jumlah_barang }}</td>
                     </tr>
                     @endforeach
                 </table>
