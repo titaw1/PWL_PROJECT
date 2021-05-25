@@ -32,3 +32,4 @@ Route::resource('kategori', KategoriController::class);
 Route::get('/laporan/kategori', [KategoriController::class, 'laporan']);
 
 Route::resource('barang', BarangController::class);
+Route::get('/laporan/barang', [BarangController::class, 'laporan']);
