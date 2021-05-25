@@ -32,12 +32,6 @@
     @endif
 	<form method="POST" action="{{ route('barang.store') }}" id="myForm" enctype="multipart/form-data">
         @csrf
-        <div class="form-group row">
-			<label for="gambar" class="col-sm-12 col-md-2 col-form-label text-white">Gambar</label>
-			<div class="col-sm-12 col-md-10">
-				<input type="file" class="form-control" required="required" name="gambar"></br>
-			</div>
-		</div>
 		<div class="form-group row">
 			<label for="kode_barang" class="col-sm-12 col-md-2 col-form-label text-white">Kode Barang</label>
 			<div class="col-sm-12 col-md-10">
@@ -46,11 +40,14 @@
 		</div>
         <div class="form-group row">
 			<label for="id_kategori" class="col-sm-12 col-md-2 col-form-label text-white">Kategori</label>
-                <select type="id_kategori" name="id_kategori" class="col-sm-12 col-md-10" id="id_kategori">
+            <div class="col-sm-12 col-md-10">
+                <select class="custom-select col-12" type="id_kategori" name="id_kategori" id="id_kategori">
+                    <option value="">Choose Kategori</option>
                     @foreach ($kategori as $kt)
-                        <option option value="{{$kt->id}}">{{$kt->nama_kategori}}</option>
+                        <option value="{{$kt->id}}">{{$kt->nama_kategori}}</option>
                     @endforeach
                 </select>
+            </div>
 		</div>
 		<div class="form-group row">
 			<label for="nama_barang" class="col-sm-12 col-md-2 col-form-label text-white">Nama Barang</label>
@@ -62,6 +59,12 @@
 			<label for="jumlah_barang" class="col-sm-12 col-md-2 col-form-label text-white">Jumlah</label>
 			<div class="col-sm-12 col-md-10">
 				<input class="form-control" type="text" name="jumlah_barang" id="jumlah_barang" aria-describedby="jumlah_barang" placeholder="">
+			</div>
+		</div>
+        <div class="form-group row">
+			<label for="gambar" class="col-sm-12 col-md-2 col-form-label text-white">Gambar</label>
+			<div class="col-sm-12 col-md-10">
+				<input class="form-control" type="file" name="gambar" id="gambar" aria-describedby="gambar" placeholder=""></br>
 			</div>
 		</div>
 		<div class="form-group row">

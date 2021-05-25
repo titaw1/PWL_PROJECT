@@ -62,9 +62,6 @@ class BarangController extends Controller
                 $image_name = $request->file('gambar')->store('images', 'public');
             }
 
-            //fungsi eloquent untuk menambah data
-            Barang::create($request->all());
-
             $kategori = Kategori::find($request->get('id_kategori'));
 
             $barang = new Barang;
@@ -72,7 +69,6 @@ class BarangController extends Controller
             $barang->nama_barang = $request->get('nama_barang');
             $barang->gambar = $image_name;
             $barang->jumlah_barang = $request->get('jumlah_barang');
-            $barang->id_kategori = $request->get('id_kategori');
 
             //fungsi eloquent untuk menambah data dengan relasi belongsTo
             $barang->kategori()->associate($kategori);
