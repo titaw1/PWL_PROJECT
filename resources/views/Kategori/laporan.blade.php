@@ -19,11 +19,10 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left mt-2">
-                    <h3 align="center">SISTEM INVENTORY SEKOLAH</h2>
-                    <h3 align="center">LAPORAN DATA KATEGORI BARANG</h1>
+                    <h3 align="center">SISTEM INVENTORY SEKOLAH</h3>
+                    <h3 align="center">LAPORAN DATA KATEGORI BARANG</h3>
                 </div>
                 <br>
-
                 <table class="table table-bordered">
                     <tr>
                         {{--  <th>No</th>  --}}
