@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,3 +30,5 @@ Route::get('/coba', function () {
 
 Route::resource('kategori', KategoriController::class);
 Route::get('/laporan/kategori', [KategoriController::class, 'laporan']);
+
+Route::resource('barang', BarangController::class);
