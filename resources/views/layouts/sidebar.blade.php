@@ -27,6 +27,11 @@
                         <span class="micon dw dw-box"></span><span class="mtext">Barang</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('supplier.index') }}" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-shop"></span><span class="mtext">Supplier</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
