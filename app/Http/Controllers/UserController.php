@@ -51,12 +51,24 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
+            'gambar' => 'required',
             'role' => 'required',
             ]);
 
-            //fungsi eloquent untuk menambah data
-            User::create($request->all());
+            if ($request->file('gambar')) {
+                $image_name = $request->file('gambar')->store('images', 'public');
+            }
 
+            //fungsi eloquent untuk menambah data
+            $user = new User;
+            $user->name = $request->get('name');
+            $user->email = $request->get('email');
+            $user->password = bcrypt($request->get('password'));
+            $user->gambar = $image_name;
+            $user->role = $request->get('role');
+
+            $user -> save();
+            //User::create($request->all());
             //jika data berhasil ditambahkan, akan kembali ke halaman utama
             Alert::success('Success', 'Data User Barang Berhasil Ditambahkan');
             return redirect()->route('user.index');
@@ -71,7 +83,7 @@ class UserController extends Controller
     public function show($id)
     {
         //menampilkan detail data dengan menemukan berdasarkan id User
-        $User = User::find($id);
+        $user = User::find($id);
         return view('User.show', compact('user'));
     }
 
@@ -84,7 +96,7 @@ class UserController extends Controller
     public function edit($id)
     {
         //menampilkan detail data dengan menemukan berdasarkan id User untuk diedit
-        $User = User::find($id);
+        $user = User::find($id);
         return view('User.edit', compact('user'));
     }
 
@@ -102,15 +114,27 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
+            'gambar' => 'required',
             'role' => 'required',
             ]);
 
+        $user = User::find($id);
         //fungsi eloquent untuk mengupdate data inputan kita
-            User::find($id)->update($request->all());
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->password = bcrypt($request->get('password'));
+        if ($user->gambar && file_exists(storage_path('app/public/' .$user->gambar)))
+        {
+            \Storage::delete(['public/' . $user->gambar]);
+        }
+        $image_name = $request->file('gambar')->store('images', 'public');
+        $user->gambar = $image_name;
+        $user->role = $request->get('role');
 
+        $user->save();
         //jika data berhasil diupdate, akan kembali ke halaman utama
-            Alert::success('Success', 'Data User Berhasil Diupdate');
-            return redirect()->route('user.index');
+        Alert::success('Success', 'Data User Berhasil Diupdate');
+        return redirect()->route('user.index');
     }
 
     /**
