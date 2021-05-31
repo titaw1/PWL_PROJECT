@@ -35,7 +35,7 @@
                     @foreach ($barang as $br => $data)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td><img width="50px" src="{{ asset('storage/' . $data->gambar)}}"></td>
+                        <td><img width="100px" src="{{ public_path('storage/' . $data->gambar)}}"></td>
                         <td>{{ $data->kode_barang }}</td>
                         <td>{{ $data->kategori->nama_kategori }}</td>
                         <td>{{ $data->nama_barang }}</td>
