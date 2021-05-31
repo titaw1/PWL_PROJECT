@@ -3,6 +3,7 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,3 +38,6 @@ Route::get('/laporan/barang', [BarangController::class, 'laporan']);
 
 Route::resource('supplier', SupplierController::class);
 Route::get('/laporan/supplier', [SupplierController::class, 'laporan']);
+
+Route::resource('user', UserController::class);
+Route::get('/laporan/user', [UserController::class, 'laporan']);
