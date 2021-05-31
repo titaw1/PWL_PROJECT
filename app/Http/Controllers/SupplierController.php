@@ -39,14 +39,14 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        $num = Supplier::orderBy('created_at','desc')->count();
-        $dataCode = Supplier::orderBy('created_at','desc')->first();
-        if ($num ==0) {
+        $num = Supplier::orderBy('kode','desc')->count();
+        $dataCode = Supplier::orderBy('kode','desc')->first();
+        if ($num == 0) {
             $code = 'SUP001';
         }
         else{
             $c = $dataCode->kode;
-            $code = substr($c, 3)+3;
+            $code = substr($c, 3)+1;
             $code = "SUP00".$code;
         }
         return view('Supplier.create',compact('code'));
