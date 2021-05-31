@@ -32,6 +32,11 @@
                         <span class="micon dw dw-shop"></span><span class="mtext">Supplier</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('user.index') }}" class="dropdown-toggle no-arrow">
+                        <span class="micon fa fa-users"></span><span class="mtext">Data User</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
