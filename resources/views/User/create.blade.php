@@ -53,15 +53,20 @@
 			</div>
 		</div>
         <div class="form-group row">
+			<label for="role" class="col-sm-12 col-md-2 col-form-label text-white">Role</label>
+            <div class="col-sm-12 col-md-10">
+                <select class="custom-select col-12" type="role" name="role" id="role">
+                    <option value="">Choose Role</option>
+                    <option value="Administrator">Administrator</option>
+                    <option value="Operator">Operator</option>
+                    <option value="Peminjam">Peminjam</option>
+                </select>
+            </div>
+		</div>
+        <div class="form-group row">
 			<label for="gambar" class="col-sm-12 col-md-2 col-form-label text-white">Gambar</label>
 			<div class="col-sm-12 col-md-10">
 				<input class="form-control" type="file" name="gambar" id="gambar" aria-describedby="gambar" placeholder=""></br>
-			</div>
-		</div>
-        <div class="form-group row">
-			<label for="role" class="col-sm-12 col-md-2 col-form-label text-white">Role</label>
-			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="role" id="role" aria-describedby="role" placeholder="">
 			</div>
 		</div>
 		<div class="form-group row">

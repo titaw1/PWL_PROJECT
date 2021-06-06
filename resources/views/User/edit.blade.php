@@ -52,16 +52,20 @@
 			</div>
 		</div>
         <div class="form-group row">
-			<label for="gambar" class="col-sm-12 col-md-2 col-form-label text-white">Gambar</label>
+			<label for="role" class="col-sm-12 col-md-2 col-form-label text-white">Role</label>
 			<div class="col-sm-12 col-md-10">
-                <img class="product" width="200" height="200" @if($user->gambar) src="{{ asset('storage/'.$user->gambar) }}" @endif />
-				<input class="form-control" type="file" name="gambar" id="gambar" aria-describedby="gambar" placeholder=""></br>
+				<select class="custom-select col-12" type="role" name="role" id="role">
+                    <option value="Administrator" @if($user->role == 'Administrator') selected @endif>Administrator</option>
+                    <option value="Operator" @if($user->role == 'Operator') selected @endif>Operator</option>
+                    <option value="Peminjam" @if($user->role == 'Peminjam') selected @endif>Peminjam</option>
+                </select>
 			</div>
 		</div>
         <div class="form-group row">
-			<label for="role" class="col-sm-12 col-md-2 col-form-label text-white">Role</label>
+			<label for="gambar" class="col-sm-12 col-md-2 col-form-label text-white">Gambar</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="role" id="role" value="{{ $user->role }}"aria-describedby="role" placeholder="">
+                <img class="product" width="200" height="200" @if($user->gambar) src="{{ asset('storage/'.$user->gambar) }}" @endif />
+				<input class="uploads form-control" type="file" name="gambar" ></br>
 			</div>
 		</div>
 		<div class="form-group row">
