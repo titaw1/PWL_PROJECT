@@ -50,7 +50,6 @@
                         <th class="table-plus datatable-nosort">No</th>
                         <th>Nama</th>
                         <th>Email</th>
-                        <th class="table-plus datatable-nosort">Gambar</th>
                         <th>Role</th>
                         <th class="datatable-nosort">Action</th>
                     </tr>
@@ -61,7 +60,6 @@
                         <td class="table-plus">{{ $us + $user->firstitem() }}</td>
                         <td>{{ $data->name }}</td>
                         <td>{{ $data->email}}</td>
-                        <td><img width="120px" src="{{ asset('storage/' . $data->gambar)}}"></td>
                         <td>{{ $data->role }}</td>
                         <td>
                             <div class="dropdown">

@@ -18,32 +18,39 @@
         </div>
     </div>
 </div>
-<div class="pd-20 card-box mb-30">
-	<form>
-		<div class="form-group row">
-			<label for="name" class="col-sm-12 col-md-2 col-form-label text-white">Nama</label>
-			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="name" id="name" value="{{ $user->name }}" aria-describedby="name" placeholder="Disabled input" disabled="">
-			</div>
-		</div>
-		<div class="form-group row">
-			<label for="email" class="col-sm-12 col-md-2 col-form-label text-white">Email</label>
-			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="email" name="email" id="email" value="{{ $user->email }}" aria-describedby="email" placeholder="Disabled input" disabled="">
-			</div>
-		</div>
-        <div class="form-group row">
-			<label for="gambar" class="col-sm-12 col-md-2 col-form-label text-white">Gambar</label>
-			<div class="col-sm-12 col-md-10">
-                <img class="product" width="250" height="250" @if($user->gambar) src="{{ asset('storage/'.$user->gambar) }}" @endif />
-			</div>
-		</div>
-        <div class="form-group row">
-			<label for="role" class="col-sm-12 col-md-2 col-form-label text-white">Role</label>
-			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="role" id="role" value="{{ $user->role }}"aria-describedby="role" placeholder="Disabled input" disabled="">
-			</div>
-		</div>
-    </form>
+<div class="product-wrap">
+    <div class="product-detail-wrap mb-30">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="pd-20 card-box height-100-p" style="padding-left: 130px">
+                    <img height="230" width="230" @if($user->gambar) src="{{ asset('storage/'.$user->gambar) }}" @endif />
+            </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="product-detail-desc pd-20 card-box height-100-p">
+                    <form>
+                        <div class="form-group row" style="padding-left: 25px">
+                            <label for="name" class="col-sm-10 col-md-3 col-form-label text-white">Nama</label>
+                            <div class="col-md-8 col-sm-12">
+                                <input class="form-control" type="text" name="name" id="name" value="{{ $user->name }}" aria-describedby="name" placeholder="Disabled input" disabled="">
+                            </div>
+                        </div>
+                        <div class="form-group row" style="padding-left: 25px">
+                            <label for="email" class="col-sm-10 col-md-3 col-form-label text-white">Email</label>
+                            <div class="col-md-8 col-sm-12">
+                                <input class="form-control" type="email" name="email" id="email" value="{{ $user->email }}" aria-describedby="email" placeholder="Disabled input" disabled="">
+                            </div>
+                        </div>
+                        <div class="form-group row" style="padding-left: 25px">
+                            <label for="role" class="col-sm-10 col-md-3 col-form-label text-white">Role</label>
+                            <div class="col-md-8 col-sm-12">
+                                <input class="form-control" type="text" name="role" id="role" value="{{ $user->role }}" aria-describedby="role" placeholder="Disabled input" disabled="">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
