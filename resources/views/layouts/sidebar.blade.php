@@ -42,11 +42,6 @@
                         <span class="micon dw dw-outbox"></span><span class="mtext">Barang Keluar</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('BarangMasuk.index') }}" class="dropdown-toggle no-arrow">
-                        <span class="micon dw dw-inbox"></span><span class="mtext">Barang Masuk</span>
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
