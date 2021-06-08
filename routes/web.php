@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangKeluarController;
+use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
@@ -45,3 +46,6 @@ Route::get('/laporan/user', [UserController::class, 'laporan']);
 
 Route::resource('BarangKeluar', BarangKeluarController::class);
 Route::get('/laporan/BarangKeluar', [BarangKeluarController::class, 'laporan']);
+
+Route::resource('BarangMasuk', BarangMasukController::class);
+Route::get('/laporan/BarangMasuk', [BarangMasukController::class, 'laporan']);
