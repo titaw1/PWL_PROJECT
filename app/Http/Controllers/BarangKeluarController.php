@@ -129,25 +129,22 @@ class BarangKeluarController extends Controller
         //fungsi eloquent untuk mengupdate data inputan kita
         $keluar = BarangKeluar::with('barang')->where('kode', $kode)->first();
         // $keluar = BarangKeluar::find($kode)->update($request->all());
-        $keluar->jumlah = $request->get('jumlah');
+
         $keluar->penanggung_jawab = $request->get('penanggung_jawab');
         $keluar->tgl_keluar = $request->get('tgl_keluar');
         $barang = Barang::find($request->get('id_barang'));
         //fungsi eloquent untuk menambah data dengan relasi belongsTo
         $keluar->barang()->associate($barang);
-
-        if($keluar->jumlah > $request->get('jumlah')) {
+        $jumlah = $request->get('jumlah');
+        $test = '';
+        if($keluar->jumlah != $jumlah) {
             $keluar->barang->where('id', $keluar->id_barang)
                     ->update([
-                        'jumlah_barang' => ($keluar->barang->jumlah_barang - ($keluar->jumlah)),
+                        'jumlah_barang' => ($keluar->barang->jumlah_barang - ($jumlah - $keluar->jumlah)),
                     ]);
-        }else {
-            $keluar->barang->where('id', $keluar->id_barang)
-                    ->update([
-                        'jumlah_barang' => ($keluar->barang->jumlah_barang + ($keluar->jumlah)),
-                    ]);
+                    $test = "($keluar->barang->jumlah_barang - ($jumlah - $keluar->jumlah))";
         }
-
+        $keluar->jumlah = $request->get('jumlah');
         $keluar->save();
 
         alert()->success('Berhasil.','Data telah diupdate!');
