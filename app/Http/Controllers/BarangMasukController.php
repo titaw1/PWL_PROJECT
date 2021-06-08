@@ -79,7 +79,7 @@ class BarangMasukController extends Controller
                             'jumlah_barang' => ($masuk->barang->jumlah_barang + ($masuk->jumlah_masuk)),
                         ]);
 
-        $masuk->BarangKeluar->where('id', $masuk->id_keluar)
+        $masuk->BarangKeluar->where('kode', $masuk->id_keluar)
                         ->update([
                             'jumlah' => ($masuk->BarangKeluar->jumlah - ($masuk->jumlah_masuk)),
                         ]);
@@ -146,7 +146,7 @@ class BarangMasukController extends Controller
                     ->update([
                         'jumlah_barang' => ($masuk->barang->jumlah_barang - ($masuk->jumlah_barang)),
                     ]);
-            $masuk->BarangKeluar->where('id', $masuk->id_keluar)
+            $masuk->BarangKeluar->where('kode', $masuk->id_keluar)
                     ->update([
                         'jumlah' => ($masuk->BarangKeluar->jumlah - ($masuk->jumlah_barang)),
                     ]);
@@ -155,7 +155,7 @@ class BarangMasukController extends Controller
                     ->update([
                         'jumlah_barang' => ($masuk->barang->jumlah_barang + ($masuk->jumlah_barang)),
                     ]);
-            $masuk->BarangKeluar->where('id', $masuk->id_keluar)
+            $masuk->BarangKeluar->where('kode', $masuk->id_keluar)
                     ->update([
                         'jumlah' => ($masuk->BarangKeluar->jumlah + ($masuk->jumlah_barang)),
                     ]);
