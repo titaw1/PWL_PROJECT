@@ -31,6 +31,9 @@
 
 		gtag('config', 'UA-119386393-1');
 	</script>
+    {{-- JS Filter --}}
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{-- End JS Filter --}}
 </head>
 <body>
 

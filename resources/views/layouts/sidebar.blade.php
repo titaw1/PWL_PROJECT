@@ -37,6 +37,11 @@
                         <span class="micon fa fa-users"></span><span class="mtext">Data User</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('BarangKeluar.index') }}" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-outbox"></span><span class="mtext">Barang Keluar</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

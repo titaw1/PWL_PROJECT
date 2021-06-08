@@ -20,7 +20,7 @@ class BarangController extends Controller
         if($request->has('search')){ // Pemilihan jika ingin melakukan pencarian
             $barang = Barang::where('kode_barang', 'like', "%" . $request->search . "%")
             ->orwhere('nama_barang', 'like', "%" . $request->search . "%")
-            ->orwhere('jumlah_barang', 'like', "%" . $request->search . "%")->with('kelas')
+            ->orwhere('jumlah_barang', 'like', "%" . $request->search . "%")->with('kategori')
             ->paginate(5);
             return view('Barang.index', compact('barang'))->with('i', (request()->input('page', 1) - 1) * 5);
         } else { // Pemilihan jika tidak melakukan pencarian
