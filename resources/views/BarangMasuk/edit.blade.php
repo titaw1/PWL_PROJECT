@@ -4,11 +4,11 @@
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="title">
-                <h4>Edit Barang Keluar</h4>
+                <h4>Edit Barang Masuk</h4>
             </div>
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('BarangKeluar.index') }}">Barang Keluar</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('BarangMasuk.index') }}">Barang Masuk</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit</li>
                 </ol>
             </nav>
@@ -30,43 +30,38 @@
             </ul>
         </div>
     @endif
-	<form method="POST" action="{{ route('BarangKeluar.update', $keluar->kode) }}" id="myForm" enctype="multipart/form-data">
+	<form method="POST" action="{{ route('BarangMasuk.update', $masuk->kode_masuk) }}" id="myForm" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 		<div class="form-group row">
-			<label for="kode" class="col-sm-12 col-md-2 col-form-label text-white">Kode Out</label>
+			<label for="kode_masuk" class="col-sm-12 col-md-2 col-form-label text-white">Kode In</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="kode" id="kode" aria-describedby="kode" value="{{$keluar->kode}}" placeholder readonly="">
+				<input class="form-control" type="text" name="kode_masuk" id="kode_masuk" aria-describedby="kode_masuk" value="{{$masuk->kode_masuk}}" placeholder readonly="">
 			</div>
 		</div>
         <div class="form row">
-			<label for="id_barang" class="col-sm-12 col-md-2 col-form-label text-white">Barang</label>
+			<label for="id_barang" class="col-sm-12 col-md-2 col-form-label text-white">Barang Keluar</label>
             <div class="col-sm-12 col-md-10">
                 <div class="input-group">
-                    <input id="barang_nama" type="text" class="form-control" value="{{ $keluar->barang->nama_barang }}" readonly="" required>
-                    <input id="id_barang" type="hidden" name="id_barang" value="{{ $keluar->id_barang }}" required readonly="">
-                    <button type="button" class="btn btn-info btn-secondary" data-toggle="modal" data-target="#myModal"><b>Cari Barang </b><span class="fa fa-search"></span></button>
+                    <input id="barang_nama" type="text" class="form-control" value="{{ $masuk->barang->nama_barang }}" readonly="" required>
+                    <input id="id_keluar" type="hidden" name="id_keluar" value="{{ $masuk->id_keluar }}" required readonly="">
+                    <input id="id_barang" type="hidden" name="id_barang" value="{{ $masuk->id_barang }}" required readonly="">
+                    <button type="button" class="btn btn-info btn-secondary" data-toggle="modal" data-target="#myModal"><b>Cari Barang Keluar </b><span class="fa fa-search"></span></button>
                 </div>
             </div>
 		</div>
 		<div class="form-group row">
-			<label for="jumlah" class="col-sm-12 col-md-2 col-form-label text-white">Jumlah</label>
+			<label for="jumlah_masuk" class="col-sm-12 col-md-2 col-form-label text-white">Jumlah</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="jumlah" id="jumlah" value="{{ $keluar->jumlah }}" aria-describedby="jumlah" placeholder="">
-			</div>
-		</div>
-		<div class="form-group row">
-			<label for="penanggung_jawab" class="col-sm-12 col-md-2 col-form-label text-white">Penaggung Jawab</label>
-			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="text" name="penanggung_jawab" id="penanggung_jawab" value="{{ $keluar->penanggung_jawab }}" aria-describedby="penanggung_jawab" placeholder="">
+				<input class="form-control" type="number" name="jumlah_masuk" id="jumlah_masuk" value="{{ $masuk->jumlah_masuk }}" aria-describedby="jumlah_masuk" placeholder="">
 			</div>
 		</div>
         <div class="form-group row">
-            <label for="tgl_keluar" class="col-sm-12 col-md-2 col-form-label text-white">Tgl Keluar</label>
-            <div class="col-sm-10">
-                <input class="form-control" type="date" name="tgl_keluar" id="tgl_keluar" value="{{ $keluar->tgl_keluar }}" aria-describedby="tgl_keluar" placeholder="">
-            </div>
-        </div>
+			<label for="tgl_masuk" class="col-sm-12 col-md-2 col-form-label text-white">Tgl Masuk</label>
+			<div class="col-sm-12 col-md-10">
+				<input class="form-control" type="date" name="tgl_masuk" value="{{ $masuk->tgl_masuk }}" id="tgl_masuk" aria-describedby="tgl_masuk" placeholder=""></br>
+			</div>
+		</div>
         <br>
 		<div class="form-group row">
 			<label class="col-sm-2 col-form-label"></label>
@@ -84,7 +79,7 @@
     <div class="modal-dialog modal-lg" role="document" >
         <div class="modal-content" style="background: #fff;">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Cari Barang</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Cari Barang Keluar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -93,19 +88,21 @@
                 <table id="lookup" class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr>
-                            <th>Kode Barang</th>
-                            <th>Kategori</th>
+                            <th>Kode Out</th>
                             <th>Nama Barang</th>
                             <th>Jumlah</th>
+                            <th>Penanggung Jawab</th>
+                            <th>Tgl Keluar</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($barang as $data)
-                        <tr class="pilih" data-id_barang="<?php echo $data->id; ?>" data-barang_nama="<?php echo $data->nama_barang; ?>" >
-                            <td>{{$data->kode_barang}}</td>
-                            <td>{{$data->kategori->nama_kategori}}</td>
-                            <td>{{$data->nama_barang}}</td>
-                            <td>{{$data->jumlah_barang}}</td>
+                        @foreach($keluar as $data)
+                        <tr class="pilih" data-id_keluar="<?php echo $data->kode; ?>" data-id_barang="<?php echo $data->id_barang; ?>" data-barang_nama="<?php echo $data->barang->nama_barang; ?>" >
+                            <td>{{$data->kode}}</td>
+                            <td>{{$data->barang->nama_barang}}</td>
+                            <td>{{$data->jumlah}}</td>
+                            <td>{{$data->penanggung_jawab}}</td>
+                            <td>{{$data->tgl_keluar}}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -128,6 +125,7 @@
 <script type="text/javascript">
     $(document).on('click', '.pilih', function (e) {
         document.getElementById("barang_nama").value = $(this).attr('data-barang_nama');
+        document.getElementById("id_keluar").value = $(this).attr('data-id_keluar');
         document.getElementById("id_barang").value = $(this).attr('data-id_barang');
         $('#myModal').modal('hide');
     });
