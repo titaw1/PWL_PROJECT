@@ -14,15 +14,20 @@
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                     <span class="user-icon">
-                        <img src="{{asset('templete/vendors/images/photo1.jpg')}}" alt="">
+                        <img src="{{asset('storage/'.Auth::user()->gambar)}}" alt="">
                     </span>
-                    <span class="user-name">Ross C. Lopez</span>
+                    <span class="user-name">Hello, {{Auth::user()->name}} !</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                    <span style="background-color: rgb(117, 161, 243)" class="dropdown-item">{{Auth::user()->role}}</span>
                     <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
                     <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
-                    <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
-                    <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="dw dw-logout"></i>{{ __('Log Out') }}</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>

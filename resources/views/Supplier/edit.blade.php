@@ -81,6 +81,12 @@
 			<div class="col-sm-10">
 				<button type="submit" class="btn btn-primary">Submit</button>
 				<button type="reset" class="btn btn-danger">Reset</button>
+                <div class="pull-right">
+                    <a href="{{route('kategori.index')}}" type="button" class="btn" data-bgcolor="#3b5998" data-color="#ffffff">
+                        <i class="icon-copy fa fa-arrow-left" aria-hidden="true"></i>
+                        Kembali
+                    </a>
+                </div>
 			</div>
 		</div>
 	</form>

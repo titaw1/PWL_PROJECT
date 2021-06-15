@@ -44,6 +44,14 @@
                 value="{{ $kategori->keterangan }}" aria-describedby="keterangan" placeholder="Disabled input" disabled="">
 			</div>
 		</div>
+        <div class="pull-right">
+            <a href="{{route('kategori.index')}}" type="button" class="btn" data-bgcolor="#3b5998" data-color="#ffffff">
+                <i class="icon-copy fa fa-arrow-left" aria-hidden="true"></i>
+                Kembali
+            </a>
+        </div>
+        <br><br>
     </form>
+
 </div>
 @endsection
