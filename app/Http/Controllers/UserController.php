@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 use PDF;
 class UserController extends Controller
@@ -49,6 +50,7 @@ class UserController extends Controller
         //melakukan validasi data
         $request->validate([
             'name' => 'required',
+            'username' => 'required',
             'email' => 'required',
             'password' => 'required',
             'gambar' => 'required',
@@ -62,6 +64,7 @@ class UserController extends Controller
             //fungsi eloquent untuk menambah data
             $user = new User;
             $user->name = $request->get('name');
+            $user->username = $request->get('username');
             $user->email = $request->get('email');
             $user->password = bcrypt($request->get('password'));
             $user->gambar = $image_name;
@@ -112,6 +115,7 @@ class UserController extends Controller
         //melakukan validasi data
         $request->validate([
             'name' => 'required',
+            'username' => 'required',
             'email' => 'required',
             'password' => 'required',
             'gambar' => 'required',
@@ -121,6 +125,7 @@ class UserController extends Controller
         $user = User::find($id);
         //fungsi eloquent untuk mengupdate data inputan kita
         $user->name = $request->get('name');
+        $user->username = $request->get('username');
         $user->email = $request->get('email');
         $user->password = bcrypt($request->get('password'));
         if ($user->gambar && file_exists(storage_path('app/public/' .$user->gambar)))

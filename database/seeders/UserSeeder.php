@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -15,25 +16,20 @@ class UserSeeder extends Seeder
     {
         \App\Models\User::insert([
             [
-                'name'=>'Nadia',
+                'name'=>'Nadia Layra',
+                'username'=>'admin',
                 'email'=>'admin@gmail.com',
-                'password'=>bcrypt('admin'),
+                'password'=>Hash::make('admin'),
                 'role'=>'Administrator',
                 'gambar'=>'images/team-img-02.JPG',
             ],
             [
-                'name'=>'Tita',
+                'name'=>'Tita Wijayanti',
+                'username'=>'operator',
                 'email'=>'operator@admin.com',
-                'password'=>bcrypt('operator'),
+                'password'=>Hash::make('operator'),
                 'role'=>'Operator',
                 'gambar'=>'images/team-img-04.JPG',
-            ],
-            [
-                'name'=>'Justin',
-                'email'=>'peminjam@admin.com',
-                'password'=>bcrypt('peminjam'),
-                'role'=>'Peminjam',
-                'gambar'=>'images/foto.JPG',
             ],
         ]);
     }

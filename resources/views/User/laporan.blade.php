@@ -27,6 +27,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
+                        <th>Username</th>
                         <th>Email</th>
                         <th>Gambar</th>
                         <th>Role</th>
@@ -35,6 +36,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $data->name }}</td>
+                        <td>{{ $data->username }}</td>
                         <td>{{ $data->email }}</td>
                         <td><img width="150px" src="{{ public_path('storage/' . $data->gambar)}}"></td>
                         <td>{{ $data->role }}</td>
