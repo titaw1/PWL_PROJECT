@@ -1,4 +1,5 @@
 @extends('layouts.MasterView')
+@section('menu_kategori', 'active')
 @section('content')
 <div class="page-header">
     <div class="row">
