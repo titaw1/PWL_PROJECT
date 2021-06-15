@@ -46,7 +46,7 @@
                 <div class="input-group">
                     <input id="barang_nama" type="text" class="form-control" value="{{ $keluar->barang->nama_barang }}" readonly="" required>
                     <input id="id_barang" type="hidden" name="id_barang" value="{{ $keluar->id_barang }}" required readonly="">
-                    <button type="button" class="btn btn-info btn-secondary" data-toggle="modal" data-target="#myModal"><b>Cari Barang </b><span class="fa fa-search"></span></button>
+                    {{--  <button type="button" class="btn btn-info btn-secondary" data-toggle="modal" data-target="#myModal"><b>Cari Barang </b><span class="fa fa-search"></span></button>  --}}
                 </div>
             </div>
 		</div>

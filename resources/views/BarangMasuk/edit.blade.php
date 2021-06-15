@@ -41,13 +41,13 @@
 			</div>
 		</div>
         <div class="form row">
-			<label for="id_barang" class="col-sm-12 col-md-2 col-form-label text-white">Barang Keluar</label>
+			<label for="id_barang" class="col-sm-12 col-md-2 col-form-label text-white">Barang Masuk</label>
             <div class="col-sm-12 col-md-10">
                 <div class="input-group">
                     <input id="barang_nama" type="text" class="form-control" value="{{ $masuk->barang->nama_barang }}" readonly="" required>
                     <input id="id_keluar" type="hidden" name="id_keluar" value="{{ $masuk->id_keluar }}" required readonly="">
                     <input id="id_barang" type="hidden" name="id_barang" value="{{ $masuk->id_barang }}" required readonly="">
-                    <button type="button" class="btn btn-info btn-secondary" data-toggle="modal" data-target="#myModal"><b>Cari Barang Keluar </b><span class="fa fa-search"></span></button>
+                    {{--  <button type="button" class="btn btn-info btn-secondary" data-toggle="modal" data-target="#myModal"><b>Cari Barang Keluar </b><span class="fa fa-search"></span></button>  --}}
                 </div>
             </div>
 		</div>

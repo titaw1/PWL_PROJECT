@@ -40,7 +40,7 @@
 			</div>
 		</div>
         <div class="form row">
-			<label for="id_barang" class="col-sm-12 col-md-2 col-form-label text-white">Barang Keluar</label>
+			<label for="id_barang" class="col-sm-12 col-md-2 col-form-label text-white">Barang Masuk</label>
             <div class="col-sm-12 col-md-10">
                 <div class="input-group">
                     <input id="barang_nama" type="text" class="form-control" readonly="" required>
