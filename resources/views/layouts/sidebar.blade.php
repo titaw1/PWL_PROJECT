@@ -13,10 +13,11 @@
         <div class="sidebar-menu">
             <ul id="accordion-menu">
                 <li>
-                    <a href="{{ url('/coba') }}" class="dropdown-toggle no-arrow @yield('menu_home')">
+                    <a href="{{ url('/') }}" class="dropdown-toggle no-arrow @yield('menu_home')">
                         <span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
                     </a>
                 </li>
+                @can('manage-MasterData')
                 <li>
                     <a href="{{ route('kategori.index') }}" class="dropdown-toggle no-arrow @yield('menu_kategori')">
                         <span class="micon dw dw-diagram"></span><span class="mtext">Kategori Barang</span>
@@ -37,6 +38,8 @@
                         <span class="micon fa fa-users"></span><span class="mtext">Data User</span>
                     </a>
                 </li>
+                @endcan
+                @can('manage-transaksi')
                 <li>
                     <a href="{{ route('BarangKeluar.index') }}" class="dropdown-toggle no-arrow @yield('menu_BarangKeluar')">
                         <span class="micon dw dw-outbox"></span><span class="mtext">Barang Keluar</span>
@@ -47,6 +50,7 @@
                         <span class="micon dw dw-inbox"></span><span class="mtext">Barang Masuk</span>
                     </a>
                 </li>
+                @endcan
             </ul>
         </div>
     </div>
