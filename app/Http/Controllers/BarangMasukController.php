@@ -133,34 +133,25 @@ class BarangMasukController extends Controller
 
         //fungsi eloquent untuk mengupdate data inputan kita
         $masuk = BarangMasuk::with('BarangKeluar')->where('kode_masuk', $kode_masuk)->first();
-        $masuk->jumlah_masuk = $request->get('jumlah_masuk');
         $masuk->tgl_masuk = $request->get('tgl_masuk');
         $keluar = BarangKeluar::find($request->get('id_keluar'));
-        $barang = Barang::find($request->get('id_barang'));
         //fungsi eloquent untuk menambah data dengan relasi belongsTo
         $masuk->BarangKeluar()->associate($keluar);
+        $barang = Barang::find($request->get('id_barang'));
+        //fungsi eloquent untuk menambah data dengan relasi belongsTo
         $masuk->barang()->associate($barang);
-
-        if($masuk->jumlah_masuk > $request->get('jumlah_masuk')) {
-            $masuk->barang->where('id', $masuk->id_barang)
-                    ->update([
-                        'jumlah_barang' => ($masuk->barang->jumlah_barang - ($masuk->jumlah_barang)),
-                    ]);
+        $jumlah_masuk = $request->get('jumlah_masuk');
+        if($masuk->jumlah_masuk != $jumlah_masuk) {
             $masuk->BarangKeluar->where('kode', $masuk->id_keluar)
                     ->update([
-                        'jumlah' => ($masuk->BarangKeluar->jumlah - ($masuk->jumlah_barang)),
+                        'jumlah' => ($masuk->BarangKeluar->jumlah - ($jumlah_masuk - $masuk->jumlah_masuk)),
                     ]);
-        }else {
             $masuk->barang->where('id', $masuk->id_barang)
                     ->update([
-                        'jumlah_barang' => ($masuk->barang->jumlah_barang + ($masuk->jumlah_barang)),
-                    ]);
-            $masuk->BarangKeluar->where('kode', $masuk->id_keluar)
-                    ->update([
-                        'jumlah' => ($masuk->BarangKeluar->jumlah + ($masuk->jumlah_barang)),
+                        'jumlah_barang' => ($masuk->barang->jumlah_barang + ($jumlah_masuk - $masuk->jumlah_masuk)),
                     ]);
         }
-
+        $masuk->jumlah_masuk = $request->get('jumlah_masuk');
         $masuk->save();
 
         alert()->success('Berhasil.','Data telah diupdate!');
