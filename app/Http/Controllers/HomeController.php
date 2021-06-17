@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
+use App\Models\BarangKeluar;
+use App\Models\BarangMasuk;
+use App\Models\Kategori;
+use App\Models\Supplier;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +29,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('coba');
+        $kategori       = Kategori::get();
+        $barang         = Barang::get();
+        $supplier       = Supplier::get();
+        $user           = User::get();
+        $BarangKeluar   = BarangKeluar::get();
+        $BarangMasuk    = BarangMasuk::get();
+
+        return view('coba', compact('kategori', 'barang', 'supplier', 'user', 'BarangKeluar', 'BarangMasuk'));
     }
 }
