@@ -39,9 +39,11 @@
                         </div>
                     </form>
                 </div>
+                @can('manage-MasterData')
                 <div class="col-md-40 col-sm-12 text-right">
                     <a class="btn btn-success" href="{{ route('barang.create') }}"> Create Data </a>
                 </div>
+                @endcan
             </div>
         </div>
         <div class="pb-20">
@@ -49,23 +51,24 @@
                 <thead>
                     <tr>
                         <th class="table-plus datatable-nosort">No</th>
-                        <th class="table-plus datatable-nosort">Gambar</th>
                         <th>Kode Barang</th>
                         <th>Kategori</th>
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
+                        @can('manage-MasterData')
                         <th class="datatable-nosort">Action</th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($barang as $br => $data)
                     <tr>
                         <td class="table-plus">{{ $br + $barang->firstitem() }}</td>
-                        <td><img width="120px" src="{{ asset('storage/' . $data->gambar)}}"></td>
                         <td>{{ $data->kode_barang }}</td>
                         <td>{{ $data->kategori->nama_kategori}}</td>
                         <td>{{ $data->nama_barang }}</td>
                         <td>{{ $data->jumlah_barang}}</td>
+                        @can('manage-MasterData')
                         <td>
                             <div class="dropdown">
                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -83,6 +86,7 @@
                                 </div>
                             </div>
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
                 </tbody>

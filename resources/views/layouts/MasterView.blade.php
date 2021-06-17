@@ -63,11 +63,12 @@
 	<script src="{{asset('templete/vendors/scripts/script.min.js')}}"></script>
 	<script src="{{asset('templete/vendors/scripts/process.js')}}"></script>
 	<script src="{{asset('templete/vendors/scripts/layout-settings.js')}}"></script>
-	<script src="{{asset('templete/src/plugins/apexcharts/apexcharts.min.js')}}"></script>
 	<script src="{{asset('templete/src/plugins/datatables/js/jquery.dataTables.min.js')}}"></script>
 	<script src="{{asset('templete/src/plugins/datatables/js/dataTables.bootstrap4.min.js')}}"></script>
 	<script src="{{asset('templete/src/plugins/datatables/js/dataTables.responsive.min.js')}}"></script>
 	<script src="{{asset('templete/src/plugins/datatables/js/responsive.bootstrap4.min.js')}}"></script>
 	<script src="{{asset('templete/vendors/scripts/dashboard.js')}}"></script>
+    <!-- Datatable Setting js -->
+	{{--  <script src="{{asset('templete/vendors/scripts/datatable-setting.js')}}"></script></body>  --}}
 </body>
 </html>

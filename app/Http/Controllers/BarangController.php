@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use RealRashid\SweetAlert\Facades\Alert;
 use PDF;
@@ -18,11 +19,7 @@ class BarangController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
-        $this->middleware(function($request, $next){
-        if(Gate::allows('manage-MasterData')) return $next($request);
-        abort(403, 'Anda tidak memiliki cukup hak akses');
-        });
+        $this->middleware('auth');
     }
 
     public function index(Request $request)
@@ -48,6 +45,11 @@ class BarangController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->role == 'Operator') {
+            Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
+            return redirect()->to('/barang');
+        }
+
         $kategori = Kategori::all();
         return view('Barang.create', ['kategori' => $kategori]);
     }
@@ -60,6 +62,11 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
+        if(Auth::user()->role == 'Operator') {
+            Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
+            return redirect()->to('/barang');
+        }
+
         //melakukan validasi data
         $request->validate([
             'kode_barang' => 'required',
@@ -100,6 +107,11 @@ class BarangController extends Controller
      */
     public function show($id)
     {
+        if(Auth::user()->role == 'Operator') {
+            Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
+            return redirect()->to('/barang');
+        }
+
         $barang = Barang::with('kategori')->find($id);
         $kategori = Kategori::all();
         return view('Barang.show', compact('barang', 'kategori'));
@@ -113,6 +125,11 @@ class BarangController extends Controller
      */
     public function edit($id)
     {
+        if(Auth::user()->role == 'Operator') {
+            Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
+            return redirect()->to('/barang');
+        }
+
         $barang = Barang::with('kategori')->find($id);
         $kategori = Kategori::all();
         return view('Barang.edit', compact('barang', 'kategori'));
@@ -127,6 +144,11 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(Auth::user()->role == 'Operator') {
+            Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
+            return redirect()->to('/barang');
+        }
+
         $request->validate([
             'kode_barang' => 'required',
             'nama_barang' => 'required',
@@ -168,6 +190,11 @@ class BarangController extends Controller
      */
     public function destroy($id)
     {
+        if(Auth::user()->role == 'Operator') {
+            Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
+            return redirect()->to('/barang');
+        }
+
         Barang::find($id)->delete();
         Alert::success('Success', 'Data Barang berhasil dihapus');
         return redirect()->route('barang.index');
