@@ -28,14 +28,15 @@ class BarangMasukController extends Controller
 
     public function index(Request $request)
     {
+        $search = $request->search;
         if($request->has('search')){ // Pemilihan jika ingin melakukan pencarian
-            $masuk = BarangMasuk::where('kode_masuk', 'like', "%" . $request->search . "%")
-            ->orwhere('id_keluar', 'like', "%" . $request->search . "%")
-            ->orwhere('id_barang', 'like', "%" . $request->search . "%")
-            ->orwhere('jumlah_masuk', 'like', "%" . $request->search . "%")
-            ->orwhere('tgl_masuk', 'like', "%" . $request->search . "%")
-            ->orwhere('status', 'like', "%" . $request->search . "%")->with('BarangKeluar')
-            ->paginate(5);
+            $masuk = BarangMasuk::where('kode_masuk', 'like', "%" . $search . "%")
+            ->orwhere('jumlah_masuk', 'like', "%" . $search . "%")
+            ->orwhere('tgl_masuk', 'like', "%" . $search . "%")
+            ->orWhereHas('barang', function($query) use($search) {
+                return $query->where('nama_barang', 'like', "%" . $search . "%");
+            })
+            ->paginate();
             return view('BarangMasuk.index', compact('masuk'))->with('i', (request()->input('page', 1) - 1) * 5);
         } else { // Pemilihan jika tidak melakukan pencarian
             //fungsi eloquent menampilkan data menggunakan pagination
