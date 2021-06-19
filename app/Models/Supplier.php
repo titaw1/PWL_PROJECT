@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Barang;
 
 class Supplier extends Model
 {
@@ -20,4 +21,8 @@ class Supplier extends Model
         'kota',
         'penyedia',
     ];
+    public function barang()
+    {
+        return $this->hasMany(Barang::class);
+    }
 }

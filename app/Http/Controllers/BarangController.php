@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Kategori;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -77,6 +78,7 @@ class BarangController extends Controller
             'gambar' => 'required',
             'jumlah_barang' => 'required',
             'id_kategori' => 'required',
+            'id_supplier' => 'required',
             ]);
 
             if ($request->file('gambar')) {
@@ -84,6 +86,7 @@ class BarangController extends Controller
             }
 
             $kategori = Kategori::find($request->get('id_kategori'));
+            $supplier = Supplier::find($request->get('id_supplier'));
 
             $barang = new Barang;
             $barang->kode_barang = $request->get('kode_barang');
@@ -93,6 +96,7 @@ class BarangController extends Controller
 
             //fungsi eloquent untuk menambah data dengan relasi belongsTo
             $barang->kategori()->associate($kategori);
+            $barang->supplier()->associate($supplier);
             $barang->save();
 
             //jika data berhasil ditambahkan, akan kembali ke halaman utama
@@ -115,9 +119,8 @@ class BarangController extends Controller
             return redirect()->to('/barang');
         }
 
-        $barang = Barang::with('kategori')->find($id);
-        $kategori = Kategori::all();
-        return view('Barang.show', compact('barang', 'kategori'));
+        $barang = Barang::with('kategori','supplier')->find($id);
+        return view('Barang.show', compact('barang'));
     }
 
     /**
@@ -133,9 +136,8 @@ class BarangController extends Controller
             return redirect()->to('/barang');
         }
 
-        $barang = Barang::with('kategori')->find($id);
-        $kategori = Kategori::all();
-        return view('Barang.edit', compact('barang', 'kategori'));
+        $barang = Barang::with('kategori','supplier')->find($id);
+        return view('Barang.edit', compact('barang'));
     }
 
     /**
@@ -158,9 +160,10 @@ class BarangController extends Controller
             'gambar' => 'required',
             'jumlah_barang' => 'required',
             'id_kategori' => 'required',
+            'id_supplier' => 'required',
         ]);
 
-        $barang = Barang::with('kategori')->where('id', $id)->first();
+        $barang = Barang::with('kategori', 'supplier')->where('id', $id)->first();
 
 
         if ($barang->gambar && file_exists(storage_path('app/public/' .$barang->gambar)))
@@ -175,8 +178,10 @@ class BarangController extends Controller
         $barang->jumlah_barang = $request->get('jumlah_barang');
 
         $kategori = Kategori::find($request->get('id_kategori'));
+        $supplier = Supplier::find($request->get('id_supplier'));
         //fungsi eloquent untuk menambah data dengan relasi belongsTo
         $barang->kategori()->associate($kategori);
+        $barang->supplier()->associate($supplier);
         $barang->save();
 
         //jika data berhasil ditambahkan, akan kembali ke halaman utama
@@ -207,7 +212,8 @@ class BarangController extends Controller
     {
         $barang = Barang::all();
         $kategori = Kategori::all();
-        $pdf = PDF::loadview('Barang.laporan', compact('barang', 'kategori'));
+        $supplier = Supplier::all();
+        $pdf = PDF::loadview('Barang.laporan', compact('barang', 'kategori', 'supplier'));
         return $pdf->stream();
     }
 }

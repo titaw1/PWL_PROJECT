@@ -24,6 +24,7 @@ class Barang extends Model
         'gambar',
         'jumlah_barang',
         'id_kategori',
+        'id_supplier',
     ];
 
     public function kategori()
@@ -37,5 +38,9 @@ class Barang extends Model
     public function BarangMasuk()
     {
         return $this->hasMany(BarangMasuk::class);
+    }
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'id_supplier');
     }
 }
