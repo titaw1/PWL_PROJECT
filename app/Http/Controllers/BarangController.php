@@ -24,16 +24,19 @@ class BarangController extends Controller
 
     public function index(Request $request)
     {
+        $search = $request->search;
         if($request->has('search')){ // Pemilihan jika ingin melakukan pencarian
-            $barang = Barang::where('kode_barang', 'like', "%" . $request->search . "%")
-            ->orwhere('nama_barang', 'like', "%" . $request->search . "%")
-            ->orwhere('jumlah_barang', 'like', "%" . $request->search . "%")->with('kategori')
-            ->paginate(5);
+            $barang = Barang::where('kode_barang', 'like', "%" . $search . "%")
+            ->orwhere('nama_barang', 'like', "%" . $search . "%")
+            ->orwhere('jumlah_barang', 'like', "%" . $search . "%")
+            ->orWhereHas('kategori', function($query) use($search) {
+                return $query->where('nama_kategori', 'like', "%" . $search . "%");
+            })
+            ->paginate();
             return view('Barang.index', compact('barang'))->with('i', (request()->input('page', 1) - 1) * 5);
         } else { // Pemilihan jika tidak melakukan pencarian
             //fungsi eloquent menampilkan data menggunakan pagination
-            $barang = Barang::with('kategori')->get();
-            $barang = Barang::paginate(5); // MenPagination menampilkan 5 data
+            $barang = Barang::with('kategori')->paginate(5); // Pagination menampilkan 5 data
         }
         return view('Barang.index', compact('barang'));
     }
