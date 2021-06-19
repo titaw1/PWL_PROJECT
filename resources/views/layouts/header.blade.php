@@ -20,8 +20,8 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                     <span style="background-color: rgb(117, 161, 243)" class="dropdown-item">{{Auth::user()->role}}</span>
-                    <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
-                    <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
+                    <a class="dropdown-item" href="{{route('user.show', Auth::user()->id)}}"><i class="dw dw-user1"></i> Profile</a>
+                    <a class="dropdown-item" href="{{route('user.edit', Auth::user()->id)}}"><i class="dw dw-settings2"></i> Setting</a>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="dw dw-logout"></i>{{ __('Log Out') }}</a>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -17,15 +18,14 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
-        $this->middleware(function($request, $next){
-        if(Gate::allows('manage-MasterData')) return $next($request);
-        abort(403, 'Anda tidak memiliki cukup hak akses');
-        });
+        $this->middleware('auth');
     }
 
     public function index(Request $request)
     {
+        if(Auth::user()->role == 'Operator') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
         if($request->has('search')){ // Pemilihan jika ingin melakukan pencarian
             $user = User::where('name', 'like', "%" . $request->search . "%")
             ->orwhere('email', 'like', "%" . $request->search . "%")
@@ -46,6 +46,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->role == 'Operator') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
         return view('User.create');
     }
 
@@ -57,6 +60,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        if(Auth::user()->role == 'Operator') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
         //melakukan validasi data
         $request->validate([
             'name' => 'required',
@@ -160,6 +166,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        if(Auth::user()->role == 'Operator') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
         //fungsi eloquent untuk menghapus data
         User::find($id)->delete();
         Alert::success('Success', 'Data user berhasil dihapus');
@@ -168,6 +177,9 @@ class UserController extends Controller
 
     public function laporan()
     {
+        if(Auth::user()->role == 'Operator') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
         $user = User::all();
         $pdf = PDF::loadview('User.laporan', compact('user'));
         return $pdf->stream();
