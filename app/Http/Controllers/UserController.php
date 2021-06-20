@@ -18,14 +18,15 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
+        $this->middleware(function($request, $next){
+        if(Gate::allows('manage-MasterData')) return $next($request);
+        abort(403, 'Anda tidak memiliki cukup hak akses');
+        });
     }
 
     public function index(Request $request)
     {
-        if(Auth::user()->role == 'Operator') {
-            abort(403, 'Anda tidak memiliki cukup hak akses');
-        }
         if($request->has('search')){ // Pemilihan jika ingin melakukan pencarian
             $user = User::where('name', 'like', "%" . $request->search . "%")
             ->orwhere('email', 'like', "%" . $request->search . "%")
@@ -46,9 +47,6 @@ class UserController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->role == 'Operator') {
-            abort(403, 'Anda tidak memiliki cukup hak akses');
-        }
         return view('User.create');
     }
 
@@ -60,9 +58,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        if(Auth::user()->role == 'Operator') {
-            abort(403, 'Anda tidak memiliki cukup hak akses');
-        }
         //melakukan validasi data
         $request->validate([
             'name' => 'required',
@@ -153,12 +148,7 @@ class UserController extends Controller
         $user->save();
         //jika data berhasil diupdate, akan kembali ke halaman utama
         Alert::success('Success', 'Data User Berhasil Diupdate');
-        if(Auth::user()->role == 'Administrator') {
-            return redirect()->route('user.index');
-        } else {
-            return redirect()->route('home');
-        }
-
+        return redirect()->route('user.index');
     }
 
     /**
@@ -169,9 +159,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        if(Auth::user()->role == 'Operator') {
-            abort(403, 'Anda tidak memiliki cukup hak akses');
-        }
         //fungsi eloquent untuk menghapus data
         User::find($id)->delete();
         Alert::success('Success', 'Data user berhasil dihapus');
@@ -180,11 +167,30 @@ class UserController extends Controller
 
     public function laporan()
     {
-        if(Auth::user()->role == 'Operator') {
-            abort(403, 'Anda tidak memiliki cukup hak akses');
-        }
         $user = User::all();
         $pdf = PDF::loadview('User.laporan', compact('user'));
         return $pdf->stream();
+    }
+
+    public function EditPassword($id)
+    {
+        $user = User::find($id);
+        return view('User.PasswordEdit', compact('user'));
+    }
+
+    public function UpdatePassword(Request $request, $id)
+    {
+        $request->validate([
+            'password' => 'required|string|min:5|confirmed',
+            'password_confirmation' => 'required',
+        ]);
+
+        $user = Auth::user();
+        $user = User::find($id);
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        Alert::success('Success', 'Password successfully changed!');
+            return redirect()->route('user.edit', $user->id);
     }
 }

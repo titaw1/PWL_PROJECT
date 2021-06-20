@@ -1,16 +1,16 @@
 @extends('layouts.MasterView')
-@section('menu_user', 'active')
+@section('menu_home', 'active')
 @section('content')
 <div class="page-header">
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="title">
-                <h4>Edit User</h4>
+                <h4>Edit Profile</h4>
             </div>
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('user.index') }}">User</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
                 </ol>
             </nav>
         </div>
@@ -31,13 +31,13 @@
             </ul>
         </div>
     @endif
-	<form method="POST" action="{{ route('user.update', $user->id) }}" id="myForm" enctype="multipart/form-data">
+	<form method="POST" action="{{ route('profile.update', $user->id) }}" id="myForm" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="form-group row">
 			<label for="password" class="col-sm-12 col-md-2 col-form-label text-white">Password</label>
 			<div class="col-sm-12 col-md-10">
-				<a href="{{route('user.edit.password', $user->id)}}" type="button" class="btn btn-info btn-lg btn-block">Edit Password</a>
+				<a href="{{route('edit.password', $user->id)}}" type="button" class="btn btn-info btn-lg btn-block">Edit Password</a>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -80,7 +80,7 @@
 				<button type="submit" class="btn btn-primary">Submit</button>
 				<button type="reset" class="btn btn-danger">Reset</button>
                 <div class="pull-right">
-                    <a href="{{route('user.index')}}" type="button" class="btn" data-bgcolor="#3b5998" data-color="#ffffff">
+                    <a href="{{url('/')}}" type="button" class="btn" data-bgcolor="#3b5998" data-color="#ffffff">
                         <i class="icon-copy fa fa-arrow-left" aria-hidden="true"></i>
                         Kembali
                     </a>

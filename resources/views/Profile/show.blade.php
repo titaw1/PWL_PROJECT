@@ -1,15 +1,15 @@
 @extends('layouts.MasterView')
-@section('menu_user', 'active')
+@section('menu_home', 'active')
 @section('content')
 <div class="page-header">
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="title">
-                <h4>Show Detail User</h4>
+                <h4>Show Detail Profile</h4>
             </div>
             <nav aria-label="breadcrumb" role="navigation">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('user.index') }}">User</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Show</li>
                 </ol>
             </nav>
@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="pd-20 card-box height-100-p" style="padding-left: 130px">
-                    <img height="230" width="230" @if($user->gambar) src="{{ asset('storage/'.$user->gambar) }}" @endif />
+                <img height="230" width="230" @if($user->gambar) src="{{ asset('storage/'.$user->gambar) }}" @endif />
             </div>
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12">
@@ -60,7 +60,7 @@
         </div>
         <br>
         <div class="text-center">
-            <a href="{{route('user.index')}}" type="button" class="btn btn-lg btn-block" data-bgcolor="rgb(40 94 138)" data-color="#ffffff">
+            <a href="{{url('/')}}" type="button" class="btn btn-lg btn-block" data-bgcolor="rgb(40 94 138)" data-color="#ffffff">
                 <i class="icon-copy fa fa-arrow-left" aria-hidden="true"></i>
                 Kembali
             </a>

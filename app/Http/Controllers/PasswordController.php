@@ -18,7 +18,7 @@ class PasswordController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('User.PasswordEdit', compact('user'));
+        return view('Profile.PasswordEdit', compact('user'));
     }
 
     public function update(Request $request, $id)
@@ -41,6 +41,6 @@ class PasswordController extends Controller
         $user->save();
 
         Alert::success('Success', 'Password successfully changed!');
-            return redirect()->route('user.edit', $user->id);
+            return redirect()->route('profile.edit', $user->id);
     }
 }
