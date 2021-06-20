@@ -5,6 +5,7 @@ use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -23,13 +24,13 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', [HomeController::class,'index']);
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('/forgot-password', function () {
     return view('auth.forget');
 });
+
+Route::get('/', [HomeController::class,'index']);
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('kategori', KategoriController::class);
 Route::get('/laporan/kategori', [KategoriController::class, 'laporan']);
@@ -48,3 +49,8 @@ Route::get('/laporan/BarangKeluar', [BarangKeluarController::class, 'laporan']);
 
 Route::resource('BarangMasuk', BarangMasukController::class);
 Route::get('/laporan/BarangMasuk', [BarangMasukController::class, 'laporan']);
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('password/{id}', [PasswordController::class, 'edit'])->name('edit.password');
+    Route::post('password/{id}', [PasswordController::class, 'update'])->name('update.password');
+});

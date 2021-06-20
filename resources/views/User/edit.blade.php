@@ -55,7 +55,7 @@
         <div class="form-group row">
 			<label for="password" class="col-sm-12 col-md-2 col-form-label text-white">Password</label>
 			<div class="col-sm-12 col-md-10">
-				<input class="form-control" type="password" name="password" id="password" value="{{ $user->password }}" aria-describedby="password" placeholder="">
+				<a href="{{route('edit.password', $user->id)}}" type="button" class="btn btn-info btn-lg btn-block">Edit Password</a>
 			</div>
 		</div>
         <div class="form-group row">
@@ -71,7 +71,7 @@
 			<label for="gambar" class="col-sm-12 col-md-2 col-form-label text-white">Gambar</label>
 			<div class="col-sm-12 col-md-10">
                 <img class="product" width="200" height="200" @if($user->gambar) src="{{ asset('storage/'.$user->gambar) }}" @endif />
-				<input class="uploads form-control" type="file" name="gambar" ></br>
+				<input class="uploads form-control" type="file" style="margin-top: 20px;" name="gambar" ></br>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -79,12 +79,21 @@
 			<div class="col-sm-10">
 				<button type="submit" class="btn btn-primary">Submit</button>
 				<button type="reset" class="btn btn-danger">Reset</button>
+                @if(Auth::user()->role == 'Administrator')
                 <div class="pull-right">
                     <a href="{{route('user.index')}}" type="button" class="btn" data-bgcolor="#3b5998" data-color="#ffffff">
                         <i class="icon-copy fa fa-arrow-left" aria-hidden="true"></i>
                         Kembali
                     </a>
                 </div>
+                @else
+                <div class="pull-right">
+                    <a href="{{url('/')}}" type="button" class="btn" data-bgcolor="#3b5998" data-color="#ffffff">
+                        <i class="icon-copy fa fa-arrow-left" aria-hidden="true"></i>
+                        Kembali
+                    </a>
+                </div>
+                @endif
 			</div>
 		</div>
 	</form>

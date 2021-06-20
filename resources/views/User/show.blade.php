@@ -59,12 +59,21 @@
             </div>
         </div>
         <br>
+        @if(Auth::user()->role == 'Administrator')
         <div class="text-center">
             <a href="{{route('user.index')}}" type="button" class="btn btn-lg btn-block" data-bgcolor="rgb(40 94 138)" data-color="#ffffff">
                 <i class="icon-copy fa fa-arrow-left" aria-hidden="true"></i>
                 Kembali
             </a>
         </div>
+        @else
+        <div class="text-center">
+            <a href="{{url('/')}}" type="button" class="btn btn-lg btn-block" data-bgcolor="rgb(40 94 138)" data-color="#ffffff">
+                <i class="icon-copy fa fa-arrow-left" aria-hidden="true"></i>
+                Kembali
+            </a>
+        </div>
+        @endif
     </div>
 </div>
 @endsection

@@ -82,7 +82,7 @@ class UserController extends Controller
             $user->name = $request->get('name');
             $user->username = $request->get('username');
             $user->email = $request->get('email');
-            $user->password = bcrypt($request->get('password'));
+            $user->password = Hash::make($request->get('password'));
             $user->gambar = $image_name;
             $user->role = $request->get('role');
 
@@ -143,7 +143,7 @@ class UserController extends Controller
         $user->name = $request->get('name');
         $user->username = $request->get('username');
         $user->email = $request->get('email');
-        $user->password = bcrypt($request->get('password'));
+        $user->password = Hash::make($request->get('password'));
         if ($user->gambar && file_exists(storage_path('app/public/' .$user->gambar)))
         {
             \Storage::delete(['public/' . $user->gambar]);
