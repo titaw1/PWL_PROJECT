@@ -133,7 +133,6 @@ class UserController extends Controller
             'name' => 'required',
             'username' => 'required',
             'email' => 'required',
-            'password' => 'required',
             'gambar' => 'required',
             'role' => 'required',
             ]);
@@ -143,7 +142,6 @@ class UserController extends Controller
         $user->name = $request->get('name');
         $user->username = $request->get('username');
         $user->email = $request->get('email');
-        $user->password = Hash::make($request->get('password'));
         if ($user->gambar && file_exists(storage_path('app/public/' .$user->gambar)))
         {
             \Storage::delete(['public/' . $user->gambar]);
@@ -155,7 +153,12 @@ class UserController extends Controller
         $user->save();
         //jika data berhasil diupdate, akan kembali ke halaman utama
         Alert::success('Success', 'Data User Berhasil Diupdate');
-        return redirect()->route('user.index');
+        if(Auth::user()->role == 'Administrator') {
+            return redirect()->route('user.index');
+        } else {
+            return redirect()->route('home');
+        }
+
     }
 
     /**

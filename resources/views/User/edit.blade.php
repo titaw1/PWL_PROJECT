@@ -34,6 +34,12 @@
 	<form method="POST" action="{{ route('user.update', $user->id) }}" id="myForm" enctype="multipart/form-data">
         @csrf
         @method('PUT')
+        <div class="form-group row">
+			<label for="password" class="col-sm-12 col-md-2 col-form-label text-white">Password</label>
+			<div class="col-sm-12 col-md-10">
+				<a href="{{route('edit.password', $user->id)}}" type="button" class="btn btn-info btn-lg btn-block">Edit Password</a>
+			</div>
+		</div>
 		<div class="form-group row">
 			<label for="name" class="col-sm-12 col-md-2 col-form-label text-white">Nama</label>
 			<div class="col-sm-12 col-md-10">
@@ -50,12 +56,6 @@
 			<label for="email" class="col-sm-12 col-md-2 col-form-label text-white">Email</label>
 			<div class="col-sm-12 col-md-10">
 				<input class="form-control" type="email" name="email" id="email" value="{{ $user->email }}" aria-describedby="email" placeholder="">
-			</div>
-		</div>
-        <div class="form-group row">
-			<label for="password" class="col-sm-12 col-md-2 col-form-label text-white">Password</label>
-			<div class="col-sm-12 col-md-10">
-				<a href="{{route('edit.password', $user->id)}}" type="button" class="btn btn-info btn-lg btn-block">Edit Password</a>
 			</div>
 		</div>
         <div class="form-group row">
