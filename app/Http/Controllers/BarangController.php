@@ -55,7 +55,8 @@ class BarangController extends Controller
         }
 
         $kategori = Kategori::all();
-        return view('Barang.create', ['kategori' => $kategori]);
+        $supplier = Supplier::all();
+        return view('Barang.create', ['kategori' => $kategori], ['supplier' => $supplier]);
     }
 
     /**
@@ -137,7 +138,9 @@ class BarangController extends Controller
         }
 
         $barang = Barang::with('kategori','supplier')->find($id);
-        return view('Barang.edit', compact('barang'));
+        $kategori = Kategori::all();
+        $supplier = Supplier::all();
+        return view('Barang.edit', compact('barang', 'kategori', 'supplier'));
     }
 
     /**

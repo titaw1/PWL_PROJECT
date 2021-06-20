@@ -26,8 +26,7 @@
                 <table class="table table-bordered">
                     <tr>
                         <th>No</th>
-                        <th>Gambar</th>
-                        <th>Kode Barang</th>
+                        <th>ID Barang</th>
                         <th>Kategori</th>
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
@@ -35,7 +34,6 @@
                     @foreach ($barang as $br => $data)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td><img width="100px" src="{{ public_path('storage/' . $data->gambar)}}"></td>
                         <td>{{ $data->kode_barang }}</td>
                         <td>{{ $data->kategori->nama_kategori }}</td>
                         <td>{{ $data->nama_barang }}</td>
