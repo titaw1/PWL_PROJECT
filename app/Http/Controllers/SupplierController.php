@@ -17,7 +17,7 @@ class SupplierController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
         $this->middleware(function($request, $next){
         if(Gate::allows('manage-MasterData')) return $next($request);
         abort(403, 'Anda tidak memiliki cukup hak akses');
