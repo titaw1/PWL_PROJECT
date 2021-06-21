@@ -57,24 +57,33 @@ class ProfileController extends Controller
             'name' => 'required',
             'username' => 'required',
             'email' => 'required',
-            'gambar' => 'required',
             'role' => 'required',
             ]);
 
-        $user = User::find($id);
-        //fungsi eloquent untuk mengupdate data inputan kita
-        $user->name = $request->get('name');
-        $user->username = $request->get('username');
-        $user->email = $request->get('email');
-        if ($user->gambar && file_exists(storage_path('app/public/' .$user->gambar)))
-        {
-            \Storage::delete(['public/' . $user->gambar]);
-        }
-        $image_name = $request->file('gambar')->store('images', 'public');
-        $user->gambar = $image_name;
-        $user->role = $request->get('role');
+            $user = User::find($id);
 
-        $user->save();
+            //fungsi eloquent untuk mengupdate data inputan kita
+            if ($request->file('gambar') == ''){
+                $user->name = $request->get('name');
+                $user->username = $request->get('username');
+                $user->email = $request->get('email');
+                $user->role = $request->get('role');
+                $user->save();
+            }
+            else {
+                if ($user->gambar && file_exists(storage_path('app/public/' .$user->gambar)))
+            {
+                \Storage::delete(['public/' . $user->gambar]);
+            }
+            $image_name = $request->file('gambar')->store('images', 'public');
+            $user->gambar = $image_name;
+            $user->name = $request->get('name');
+            $user->username = $request->get('username');
+            $user->email = $request->get('email');
+            $user->role = $request->get('role');
+            $user->save();
+            }
+
         //jika data berhasil diupdate, akan kembali ke halaman utama
         Alert::success('Success', 'Data User Berhasil Diupdate');
         return redirect()->route('home');

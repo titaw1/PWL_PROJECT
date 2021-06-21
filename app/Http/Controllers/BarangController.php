@@ -160,7 +160,6 @@ class BarangController extends Controller
         $request->validate([
             'kode_barang' => 'required',
             'nama_barang' => 'required',
-            'gambar' => 'required',
             'jumlah_barang' => 'required',
             'id_kategori' => 'required',
             'id_supplier' => 'required',
@@ -168,29 +167,40 @@ class BarangController extends Controller
 
         $barang = Barang::with('kategori', 'supplier')->where('id', $id)->first();
 
+        if ($request->file('gambar') == ''){
+            $barang->kode_barang = $request->get('kode_barang');
+            $barang->nama_barang = $request->get('nama_barang');
+            $barang->jumlah_barang = $request->get('jumlah_barang');
 
-        if ($barang->gambar && file_exists(storage_path('app/public/' .$barang->gambar)))
-        {
-            \Storage::delete(['public/' . $barang->gambar]);
+            $kategori = Kategori::find($request->get('id_kategori'));
+            $supplier = Supplier::find($request->get('id_supplier'));
+            //fungsi eloquent untuk menambah data dengan relasi belongsTo
+            $barang->kategori()->associate($kategori);
+            $barang->supplier()->associate($supplier);
+            $barang->save();
+        } else{
+            if ($barang->gambar && file_exists(storage_path('app/public/' .$barang->gambar)))
+            {
+                \Storage::delete(['public/' . $barang->gambar]);
+            }
+            $image_name = $request->file('gambar')->store('images', 'public');
+            $barang->gambar = $image_name;
+
+            $barang->kode_barang = $request->get('kode_barang');
+            $barang->nama_barang = $request->get('nama_barang');
+            $barang->jumlah_barang = $request->get('jumlah_barang');
+
+            $kategori = Kategori::find($request->get('id_kategori'));
+            $supplier = Supplier::find($request->get('id_supplier'));
+            //fungsi eloquent untuk menambah data dengan relasi belongsTo
+            $barang->kategori()->associate($kategori);
+            $barang->supplier()->associate($supplier);
+            $barang->save();
         }
-        $image_name = $request->file('gambar')->store('images', 'public');
-        $barang->gambar = $image_name;
-
-        $barang->kode_barang = $request->get('kode_barang');
-        $barang->nama_barang = $request->get('nama_barang');
-        $barang->jumlah_barang = $request->get('jumlah_barang');
-
-        $kategori = Kategori::find($request->get('id_kategori'));
-        $supplier = Supplier::find($request->get('id_supplier'));
-        //fungsi eloquent untuk menambah data dengan relasi belongsTo
-        $barang->kategori()->associate($kategori);
-        $barang->supplier()->associate($supplier);
-        $barang->save();
 
         //jika data berhasil ditambahkan, akan kembali ke halaman utama
         Alert::success('Success', 'Data Barang Berhasil Diedit');
         return redirect()->route('barang.index');
-
     }
 
     /**
