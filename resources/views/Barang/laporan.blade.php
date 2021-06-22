@@ -30,6 +30,7 @@
                         <th>Kategori</th>
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
+                        <th>Supplier</th>
                     </tr>
                     @foreach ($barang as $br => $data)
                     <tr>
@@ -38,6 +39,7 @@
                         <td>{{ $data->kategori->nama_kategori }}</td>
                         <td>{{ $data->nama_barang }}</td>
                         <td>{{ $data->jumlah_barang }}</td>
+                        <td>{{ $data->supplier->nama }}</td>
                     </tr>
                     @endforeach
                 </table>
