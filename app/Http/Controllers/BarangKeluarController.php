@@ -82,17 +82,27 @@ class BarangKeluarController extends Controller
             'tgl_keluar' => 'required',
 
         ]);
+        $keluar = new BarangKeluar;
+        $keluar->kode = $request->get('kode');
+        $keluar->id_barang = $request->get('id_barang');
+        $keluar->jumlah = $request->get('jumlah');
+        $keluar->penanggung_jawab = $request->get('penanggung_jawab');
+        $keluar->tgl_keluar = $request->get('tgl_keluar');
 
-        //fungsi eloquent untuk menambah data
-        $keluar = BarangKeluar::create($request->all());
+        $jumlah = $request->get('jumlah');
+        if ($jumlah > $keluar->barang->jumlah_barang) {
+            alert()->error('Error.','Jumlah yang anda masukkan melebihi stok barang!');
+            return redirect()->route('BarangKeluar.create');
+        } else {
+            $keluar->save();
+            $keluar->barang->where('id', $keluar->id_barang)
+                            ->update([
+                                'jumlah_barang' => ($keluar->barang->jumlah_barang - ($keluar->jumlah)),
+                                ]);
 
-        $keluar->barang->where('id', $keluar->id_barang)
-                        ->update([
-                            'jumlah_barang' => ($keluar->barang->jumlah_barang - ($keluar->jumlah)),
-                            ]);
-
-        alert()->success('Berhasil.','Data telah ditambahkan!');
-        return redirect()->route('BarangKeluar.index');
+            alert()->success('Berhasil.','Data telah ditambahkan!');
+            return redirect()->route('BarangKeluar.index');
+        }
     }
 
     /**
@@ -149,13 +159,15 @@ class BarangKeluarController extends Controller
         //fungsi eloquent untuk menambah data dengan relasi belongsTo
         $keluar->barang()->associate($barang);
         $jumlah = $request->get('jumlah');
-        $test = '';
-        if($keluar->jumlah != $jumlah) {
+
+        if (($jumlah-$keluar->jumlah) > $keluar->barang->jumlah_barang) {
+            alert()->error('Error.','Jumlah yang anda masukkan melebihi stok barang!');
+            return redirect()->route('BarangKeluar.edit',$keluar->kode);
+        }else {
             $keluar->barang->where('id', $keluar->id_barang)
                     ->update([
                         'jumlah_barang' => ($keluar->barang->jumlah_barang - ($jumlah - $keluar->jumlah)),
                     ]);
-                    $test = "($keluar->barang->jumlah_barang - ($jumlah - $keluar->jumlah))";
         }
         $keluar->jumlah = $request->get('jumlah');
         $keluar->save();
