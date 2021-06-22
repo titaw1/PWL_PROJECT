@@ -36,7 +36,7 @@ class BarangKeluarController extends Controller
             ->orWhereHas('barang', function($query) use($search) {
                 return $query->where('nama_barang', 'like', "%" . $search . "%");
             })
-            ->paginate();
+            ->paginate(10);
             return view('BarangKeluar.index', compact('keluar'))->with('i', (request()->input('page', 1) - 1) * 5);
         } else { // Pemilihan jika tidak melakukan pencarian
             //fungsi eloquent menampilkan data menggunakan pagination
