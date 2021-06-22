@@ -82,21 +82,32 @@ class BarangMasukController extends Controller
             'tgl_masuk' => 'required',
         ]);
 
-        //fungsi eloquent untuk menambah data
-        $masuk = BarangMasuk::create($request->all());
+        $masuk = new BarangMasuk;
+        $masuk->kode_masuk = $request->get('kode_masuk');
+        $masuk->id_keluar = $request->get('id_keluar');
+        $masuk->id_barang = $request->get('id_barang');
+        $masuk->jumlah_masuk = $request->get('jumlah_masuk');
+        $masuk->tgl_masuk = $request->get('tgl_masuk');
 
-        $masuk->barang->where('id', $masuk->id_barang)
-                        ->update([
-                            'jumlah_barang' => ($masuk->barang->jumlah_barang + ($masuk->jumlah_masuk)),
-                        ]);
+        $jumlah = $request->get('jumlah_masuk');
+        if ($jumlah > $masuk->BarangKeluar->jumlah) {
+            alert()->error('Error.','Jumlah yang anda masukkan melebihi jumlah barang keluar!');
+            return redirect()->route('BarangMasuk.create');
+        } else {
+            $masuk->save();
+            $masuk->barang->where('id', $masuk->id_barang)
+                            ->update([
+                                'jumlah_barang' => ($masuk->barang->jumlah_barang + ($masuk->jumlah_masuk)),
+                            ]);
 
-        $masuk->BarangKeluar->where('kode', $masuk->id_keluar)
-                        ->update([
-                            'jumlah' => ($masuk->BarangKeluar->jumlah - ($masuk->jumlah_masuk)),
-                        ]);
+            $masuk->BarangKeluar->where('kode', $masuk->id_keluar)
+                            ->update([
+                                'jumlah' => ($masuk->BarangKeluar->jumlah - ($masuk->jumlah_masuk)),
+                            ]);
 
-        alert()->success('Berhasil.','Data telah ditambahkan!');
-        return redirect()->route('BarangMasuk.index');
+            alert()->success('Berhasil.','Data telah ditambahkan!');
+            return redirect()->route('BarangMasuk.index');
+        }
     }
 
     /**
@@ -152,7 +163,10 @@ class BarangMasukController extends Controller
         //fungsi eloquent untuk menambah data dengan relasi belongsTo
         $masuk->barang()->associate($barang);
         $jumlah_masuk = $request->get('jumlah_masuk');
-        if($masuk->jumlah_masuk != $jumlah_masuk) {
+        if(($jumlah_masuk - $masuk->jumlah_masuk) > $masuk->BarangKeluar->jumlah) {
+            alert()->error('Error.','Jumlah yang anda masukkan melebihi jumlah barang keluar!');
+            return redirect()->route('BarangMasuk.edit',$masuk->kode_masuk);
+        }else {
             $masuk->BarangKeluar->where('kode', $masuk->id_keluar)
                     ->update([
                         'jumlah' => ($masuk->BarangKeluar->jumlah - ($jumlah_masuk - $masuk->jumlah_masuk)),
