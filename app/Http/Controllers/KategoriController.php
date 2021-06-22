@@ -30,11 +30,11 @@ class KategoriController extends Controller
             $kategori = Kategori::where('kode_kategori', 'like', "%" . $request->search . "%")
             ->orwhere('nama_kategori', 'like', "%" . $request->search . "%")
             ->orwhere('keterangan', 'like', "%" . $request->search . "%")
-            ->paginate(10);
+            ->paginate();
             return view('Kategori.index', compact('kategori'))->with('i', (request()->input('page', 1) - 1) * 5);
         } else { // Pemilihan jika tidak melakukan pencarian
             //fungsi eloquent menampilkan data menggunakan pagination
-            $kategori = Kategori::paginate(5); // MenPagination menampilkan 5 data
+            $kategori = Kategori::paginate(10); // MenPagination menampilkan 5 data
             return view('Kategori.index', compact('kategori'));
         }
     }

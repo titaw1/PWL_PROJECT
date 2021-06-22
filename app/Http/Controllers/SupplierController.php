@@ -33,11 +33,11 @@ class SupplierController extends Controller
             ->orwhere('telp', 'like', "%" . $request->search . "%")
             ->orwhere('kota', 'like', "%" . $request->search . "%")
             ->orwhere('penyedia', 'like', "%" . $request->search . "%")
-            ->paginate(10);
+            ->paginate();
             return view('Supplier.index', compact('supplier'))->with('i', (request()->input('page', 1) - 1) * 5);
         } else { // Pemilihan jika tidak melakukan pencarian
             //fungsi eloquent menampilkan data menggunakan pagination
-            $supplier = Supplier::paginate(5); // MenPagination menampilkan 5 data
+            $supplier = Supplier::paginate(10); // MenPagination menampilkan 5 data
             return view('Supplier.index', compact('supplier'));
         }
     }

@@ -31,11 +31,11 @@ class UserController extends Controller
             $user = User::where('name', 'like', "%" . $request->search . "%")
             ->orwhere('email', 'like', "%" . $request->search . "%")
             ->orwhere('role', 'like', "%" . $request->search . "%")
-            ->paginate(10);
+            ->paginate();
             return view('User.index', compact('user'))->with('i', (request()->input('page', 1) - 1) * 5);
         } else { // Pemilihan jika tidak melakukan pencarian
             //fungsi eloquent menampilkan data menggunakan pagination
-            $user = User::paginate(5); // MenPagination menampilkan 5 data
+            $user = User::paginate(10); // MenPagination menampilkan 5 data
             return view('User.index', compact('user'));
         }
     }
